@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+     <link rel="stylesheet" href="css/wizard.css">
+    <script src="../Unsa_Coding_Test/Third%20Task/ourjs/wizard.js"></script>
+</head>
+<body ng-app="wizardApp">
+
+<div class="row" ng-controller="wizardControl">
+    <div class="col-xs-5">
+<div class="summary">
+    <!-- not expecting the user to enter thier details as presumed that the user information is
+    already authorised and modelled in the controller -->
+    <ng-form>
+        <div class="form-group form-inline">
+
+                <label for="fname"><strong>First Name</strong></label>
+                <input class="wizard1" type="text" id="fname" ng-model="firstName" readonly>
+        </div>
+            <div class="form-group form-inline">
+                <label for="lname"><strong>Last Name</strong> </label>
+                    <input class="wizard1 " type="text" id="lname" ng-model="lastName" readonly>
+        </div>
+        <div class="form-group ">
+            <label for="uname">User Name</label>
+            <input class="wizard1" type="text" id="uname" ng-model="userName" readonly>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email Id</label>
+            <input class="wizard1" type=text id="email" ng-model="email" readonly>
+        </div>
+
+        <div class="form-group">
+            <label for="account">Account Type</label>
+            <input class="wizard1" type=text id="account" ng-model="account" readonly>
+        </div>
+    </ng-form>
+    <div>
+        <h4>Please Confirm your Details:&nbsp&nbsp<span><button class="btn btn-primary" ng-click="step2=true">Confirm</button></span></h4>
+    </div>
+    <div>
+        <button class="btn btn-primary btn-block" ng-click="account='Light'">Conclude</button>
+        <!-- spec is not clear as what to do when the user click conclude other than accout type changed to light -->
+    </div>
+
+    </div>
+    </div>
+    <div class="col-xs-7">
+<div ng-show="step2">
+    <form>
+    <div class="summary">
+        <h4>Click here if you want to Opt In to Plus Account<div><button type="button"  class="btn btn-primary btn-block "  ng-click="standard()">OptIn PLUS</button></div></h4>
+        <h4>If You are already a PLUS user this will change you to LIGHT account</h4>
+    </div>
+    </form>
+        </div>
+        <div class="summary" ng-show="step3">
+            <h4 class="text-center" style="color: blue;"><p>Selecting minium of 4 of the interests will make you eligible to be a PLUS account holder.</p></h4>
+
+            <li ng-repeat="item in items">
+                <h4>
+                    <input type="checkbox" ng-model="item.selected" ng-change="change(item)" />&nbsp&nbsp<span>{{item.interest}}</span></h4>
+            </li>
+
+        </div>
+        <div class="summary" ng-show="step4">
+            <form>
+                <h4>Click here if you want to Opt In to Plus Account:
+                <div>
+                    <button  type="button"  ng-disabled="!a_plus" class="btn btn-primary btn-block" ng-click="account='premium'" >Opt for Premium User</button>
+                </div>
+                </h4>
+            </form>
+        <div>
+            <button  type="submit" class="btn btn-primary btn-block"  ng-click="submit()">Submit</button>
+        </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+</body>
+<script src="js/wizard.js"></script>
+</html>

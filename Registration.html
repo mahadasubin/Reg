@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Registration</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/registration.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+</head>
+
+<body ng-app="register">
+
+<div class="container" ng-controller="registerControl">
+
+    <div class="jumbotron" style=>
+        <h2>New User Registration</h2>
+    </div>
+
+    <div class="row">
+
+    <ng-form class="form-horizontal" name="regForm">
+        <div class="col-sm-5">
+        <div class="form-group"  ng-class="{ 'has-error' : regForm.email.$invalid&& out_e }">
+            <label class="control-label " for="email">Email:</label>
+
+                <input  type="email" name="email" class="form-control" id="email" ng-blur="out_e=true" placeholder="Enter email" ng-model="user.email" required ng-maxlength="50">
+                <p ng-show="regForm.email.$invalid&& out_e">Enter a valid email.</p>
+                <p ng-show="regForm.email.$error.maxlength">Email should not exceed 50 characters</p>
+
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error' : regForm.password.$invalid && out_p}">
+            <label class="control-label " for="pwd1">Password:</label>
+
+                <input type="password"  name="password" class="form-control" id="pwd1" ng-blur="out_p=true" placeholder="Enter password" required ng-model="pswd1" ng-minlength="6">
+                <p ng-show="regForm.password.$error.minlength && out_p">Min password length is 6 characters.</p>
+                <p ng-show="regForm.password.$invalid&& out_p">Password is required to be filled.</p>
+
+        </div>
+
+        <div class="form-group">
+            <label class="control-label " for="pwd2">Confirm Password:</label>
+
+                <input type="password" class="form-control" id="pwd2" placeholder="Confirm password" required ng-model="pswd2" ng-blur="checkpswd()">
+
+        </div>
+        <div class="form-group" ng-class="{ 'has-error' : regForm.firstname.$invalid && out_f }">
+            <label class="control-label " for="firstname">First Name:</label>
+
+                <input type="text" class="form-control" id="firstname"  ng-blur="out_f=true" name="firstname" placeholder="First Name" ng-model="user.firstname" required ng-pattern="/^[a-zA-Z\s]*$/">
+                <p ng-show="regForm.firstname.$invalid && out_f">Enter your First Name.</p>
+
+        </div>
+        <div class="form-group">
+            <label class="control-label " for="lastname">Last Name:</label>
+
+                <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name" ng-model="user.lastname" ng-pattern="/^[a-zA-Z\s]*$/" ng-blur="out_l=true">
+            <p ng-show="regForm.lastname.$invalid && out_l">Enter your Last Name."ONLY LETTERS"</p>
+
+        </div>
+        <div class="form-group" ng-class="{ 'has-error' : regForm.dob.$invalid&& ageinvalid }">
+            <label class="control-label " for="birthday">Date of Birth:</label>
+                <input type="date" date-picker class="form-control" id="birthday"  placeholder="mm/d/yyyy" name="dob" ng-blur="agecheck()" required ng-model="user.birthday">
+            <p ng-show="ageinvalid" >You should be above 14yrs old and below 150yrs old</p>
+        </div>
+        </div>
+        <div class="col-sm-2" style="background-color:grey"></div>
+
+        <div ng-show="isSubmit">
+        <div class="col-sm-5">
+        <div ><h4>Full Name: {{user.firstname+ " " + user.lastname}}</h4></div>
+
+        <div ><h4>Email: {{user.email}}</h4></div>
+
+        <div ><h4>Birthday: {{ user.birthday | date:'dd/MMM/yyyy'}}</h4></div>
+
+        <div class="form-group">
+        <label class="control-label " for="details">Enter your details with interest</label>
+        <div >
+            <textarea cols="50" rows="20" id="details" placeholder="Add your interests"></textarea>
+        </div>
+
+            </div>
+
+                <div class="form-group">
+        <label class="control-label " for="file">Upload your bio</label>
+        <div>
+            <input type="file" id="file">
+        </div>
+                </div>
+        </div>
+        </div>
+    </ng-form>
+    </div>
+<div class="row">
+    <div class="col-sm-2">
+            <button  ng-click="clear()" class="btn btn-lg btn-primary btn-block">Clear</button>
+
+    </div>
+    <div class="col-sm-2">
+            <button  type="submit" class="btn btn-lg btn-primary btn-block" ng-click="submit()" ng-disabled="regForm.email.$invalid || regForm.pswd.$invalid || regForm.firstname.$invalid || regForm.dob.$invalid || ageinvalid"  >Submit</button>
+    </div>
+
+</div>
+
+
+</div>
+</div>
+<script src="js/app.js"></script>
+<script src="js/controller.js"></script>
+<script src="js/directive.js"></script>
+
+</body>
+
+</html>
